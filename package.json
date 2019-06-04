@@ -10,5 +10,10 @@
     "git"
   ],
   "author": "Garwah Lam",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.20.0",
+    "inquirer": "^6.3.1",
+    "js-yaml": "^3.13.1"
+  }
 }
