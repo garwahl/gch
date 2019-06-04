@@ -41,9 +41,11 @@ const saveBranches = (recentBranch) => {
 
 const args = program.parse(process.argv).args;
 const path = ".gch.yml";
-let branches = loadBranches() == null ? [] : branches.slice(0,MAX_BRANCHES);
+let branches = loadBranches();
+branches = branches == null ? [] : branches.slice(0,MAX_BRANCHES);
 if (args.length > 0) {
 	checkoutBranch(args[0]);
+	return;
 }
 
 if (branches.length == 0) {
