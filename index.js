@@ -13,15 +13,14 @@ const MAX_BRANCHES = 5;
 * Checkout a given branch.
 */
 const checkoutBranch = (branchName) => {
-console.info('Checking out:', branchName);
-exec(`git checkout ${branchName}`, (err, stdout, stderr) => {
-	    if (err) {
-	      return;
-	    }
-	    console.info(`${stdout}`);
-	    console.info(`${stderr}`);
-});
-saveBranches(branchName);
+	console.info('Checking out:', branchName);
+	exec(`git checkout ${branchName}`, (err, stdout, stderr) => {
+		    console.log(stderr);
+		    if (err) {
+			    return;
+		    }
+		    saveBranches(branchName);
+	});
 }
 
 /**
@@ -42,10 +41,13 @@ const saveBranches = (recentBranch) => {
 
 const args = program.parse(process.argv).args;
 const path = ".gch.yml";
-let branches = loadBranches().slice(0,MAX_BRANCHES);
-
+let branches = loadBranches() == null ? [] : branches.slice(0,MAX_BRANCHES);
 if (args.length > 0) {
 	checkoutBranch(args[0]);
+}
+
+if (branches.length == 0) {
+	console.error("Unable to find previous branches");
 } else {
 inquirer
   .prompt([
